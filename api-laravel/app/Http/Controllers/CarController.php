@@ -28,7 +28,7 @@ class CarController extends Controller
     }
 
     public function show($id) {
-        $car = Car::find($id)->load('user');
+        $car = Car::find($id);
         return response()->json(array(
             'car' => $car,
             'status' => 'success'
@@ -59,7 +59,7 @@ class CarController extends Controller
             $car = Car::where('id','=', $id) -> update($params_array);
             if( $car == 0){
                 $data = array(
-                    'message' => 'coche no modificado',
+                    'message' => 'coche no modificado'. $car,
                     'status' => 'Error',
                     'code' => '500'
                 );
@@ -88,6 +88,7 @@ class CarController extends Controller
         $checkToken = $jwtAuth->checkToken($hash);
         if($checkToken) {
             $car = Car::find($id);
+
             if(isset($car)) {
                 $registro_eliminado = $car->delete();
                 if( $registro_eliminado ){
@@ -100,7 +101,7 @@ class CarController extends Controller
                     $data = array(
                         'message'=> 'Ha ocurrido un error',
                         'status'=>'error',
-                        'code'=>500
+                        'code'=>501
                     );
                 }
             } else {

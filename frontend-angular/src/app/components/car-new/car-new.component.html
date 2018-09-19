@@ -1,0 +1,49 @@
+<div class="col-md-12" *ngIf="page_title">
+	<h2>{{page_title}}</h2>
+
+	<div class="alert alert-success" *ngIf="status_car == 'success'">
+		El coche se ha guardado correctamente!!
+	</div>
+
+	<div class="alert alert-danger" *ngIf="status_car == 'error'">
+		El coche no se ha guardado correctamente, intentalo de nuevo!!
+	</div>
+
+	<form #carNew="ngForm" (ngSubmit)="onSubmit(carNew)" class="col-md-5">
+		<p>
+			<label for="title">Titulo</label>
+			<input type="text" name="title" #title="ngModel" [(ngModel)]="car.title" class="form-control" required />
+			<span *ngIf="!title.valid && title.touched">
+				El titulo no es válido!!
+			</span>
+		</p>
+
+		<p>
+			<label for="description">Descripción</label>
+			<textarea name="description" #description="ngModel" [(ngModel)]="car.description" class="form-control" required></textarea>
+			<span *ngIf="!description.valid && description.touched">
+				La descripción no es válida!!
+			</span>
+		</p>
+
+		<p>
+			<label for="price">Precio</label>
+			<input type="number" name="price" #price="ngModel" [(ngModel)]="car.price" class="form-control"required />
+			<span *ngIf="!price.valid && price.touched">
+				El precio no es válido!!
+			</span>
+		</p>
+
+		<p>
+			<label for="status">¿A la venta?</label>
+			<select class="form-control" name="status" #status="ngModel" [(ngModel)]="car.status" required>
+				<option value="true" selected="selected">Si</option>
+				<option value="false">No</option>
+			</select>
+		</p>
+
+		<!--boton-->
+		<input type="submit" value="Guardar" class="btn btn-success" [disabled]="!carNew.form.valid"/>
+	</form>
+
+</div>
