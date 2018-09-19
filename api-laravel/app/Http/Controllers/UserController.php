@@ -14,7 +14,7 @@ class UserController extends Controller
         $params = json_decode($json);
 
         $email = (!is_null($json) && isset($params->email))?$params->email:null;
-        
+
         $name = (!is_null($json) && isset($params->name))?$params->name:null;
         $surname = (!is_null($json) && isset($params->surname))?$params->surname:null;
         $role = (!is_null($json) && isset($params->role))?$params->role:null;
